@@ -5,5 +5,6 @@
 @endsection
 
 @section('contenido')
-    Contenido de la pagina
+    {{-- Componente --}}
+    <x-listar-post :posts="$posts" />
 @endsection

@@ -9,8 +9,13 @@
         <div class="md:w-1/2">
             <img src="{{ asset('uploads') . '/' . $post->imagen }}" alt="Imagen del post {{$post->titulo}}">
         
-            <div class="p-3">
-                <p>0 Likes</p>
+            <div class="p-3 flex items-center">
+                @auth                
+
+                    <livewire:like-post :post="$post" />
+                    
+                @endauth 
+                        
             </div>
             
             <div>
@@ -23,6 +28,23 @@
                     {{ $post->descripcion }}
                 </p>
             </div>
+
+            @auth
+                @if($post->user_id === auth()->user()->id)
+                    <form action="{{route('posts.destroy', $post)}}" method="POST">
+                        @method('DELETE'){{-- Método SPOOFING --}}
+                        @csrf               
+                        <input 
+                            type="submit"
+                            value="Eliminar Publicacion"
+                            class="bg-red-500 hover:bg-red-600 p-2 rounded text-white 
+                            font-bold mt-4 cursor-pointer"
+
+                        >
+                    </form>
+                @endif  
+            @endauth
+            
 
         </div>
 

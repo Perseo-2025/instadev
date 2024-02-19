@@ -8,16 +8,17 @@
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
         <script src="{{ asset('js/app.js') }}" defer></script>
-        
+        @livewireStyles
     </head>
     <body class="bg-gray-100">
         <header class="p-5 border-b bg-white shadow"> 
             <div class="container mx-auto flex justify-between 
             items-center">
                 {{-- Titulo de la pagina --}}
-                <h1 class="text-3xl font-black"> 
+                <a href="{{route('home')}}" 
+                class="text-3xl font-black"> 
                     InstaDev
-                </h1>
+                </a>
 
                 {{-- Autenticado --}}
                 @auth
@@ -84,6 +85,7 @@
         <footer class="mt-20 text-center p-5 text-gray-500 font-bold uppercase">
             InstaDev - Todos los derechos Reservados {{ now()->year }}
         </footer>
+        @livewireScripts
     
     </body>
 </html>

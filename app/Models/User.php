@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\like;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -49,4 +50,29 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    /* Relacion de Likes */
+    public function likes()
+    {
+        return $this->hasMany(like::class);
+    }
+
+    // Metodo que almacena los seguidores de un usuario
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    //Comprobar si un usuario ya sigue a otro
+    public function siguiendo(User $user)
+    {   
+        return $this->followers->contains( $user->id );
+    }
+
+    // Almacenar los que seguimos
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
 }
