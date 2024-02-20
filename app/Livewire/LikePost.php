@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class LikePost extends Component
 {
-
+    /* Hollaaaaa */
     public $post;
     public $isLiked;
     public $likes;
